@@ -2,12 +2,18 @@ package academy.team8.com.footballfanlocator.presenters;
 
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Bundle;
+import android.os.Message;
 import android.util.Log;
 
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import academy.team8.com.footballfanlocator.MapActivity;
+import academy.team8.com.footballfanlocator.SendLocationActivity;
 import academy.team8.com.footballfanlocator.interactors.FirebaseUserLocationInteractor;
+import academy.team8.com.footballfanlocator.interactors.FirebaseUsersListInteractor;
 import academy.team8.com.footballfanlocator.interfaces.MapVIew;
 
 public class SendLocationPresenter implements Observer {
@@ -16,6 +22,8 @@ public class SendLocationPresenter implements Observer {
     private LocationManager locationManager;
     private MapVIew mapVIew;
     private FirebaseUserLocationInteractor firebaseUserLocationInteractor = new FirebaseUserLocationInteractor();
+    private FirebaseUsersListInteractor firebaseUsersListInteractor =  new FirebaseUsersListInteractor();
+
 
     public SendLocationPresenter(MapVIew mapVIew, LocationManager locationManager){
         this.mapVIew = mapVIew;

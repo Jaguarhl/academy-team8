@@ -8,9 +8,92 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:202940623542:android:44110e16612ddfb0",
+        "mobilesdk_app_id": "1:202940623542:android:cec6055dbed4e83d",
         "android_client_info": {
           "package_name": "academy.team8.com.footballfanlocator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "202940623542-4au15iq1r9r23imgrlrb1kdclf6gb3hs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "academy.team8.com.footballfanlocator",
+            "certificate_hash": "24acde8767ca6cb3610713b6bc39b593e7822765"
+          }
+        },
+        {
+          "client_id": "202940623542-aq9pfhki7ejodj8um3hld2rluduq5ug8.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "202940623542-aq9pfhki7ejodj8um3hld2rluduq5ug8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGhT-oZcdrbipXh7MZdOTPYxpdaPtMXNw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "202940623542-aq9pfhki7ejodj8um3hld2rluduq5ug8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:202940623542:android:01161d0416defbbd",
+        "android_client_info": {
+          "package_name": "com.dt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "202940623542-aq9pfhki7ejodj8um3hld2rluduq5ug8.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "202940623542-aq9pfhki7ejodj8um3hld2rluduq5ug8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGhT-oZcdrbipXh7MZdOTPYxpdaPtMXNw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:202940623542:android:44110e16612ddfb0",
+        "android_client_info": {
+          "package_name": "com.team8.fanlocator"
         }
       },
       "oauth_client": [
