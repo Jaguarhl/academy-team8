@@ -35,7 +35,12 @@
         </activity>
         <activity android:name=".MapActivity" />
         <activity android:name=".SignInActivity" />
-        <activity android:name=".SendLocationActivity"/>
+        <activity android:name=".SendLocationActivity" />
+        <activity
+            android:name=".ActivityChooseCountry"
+            android:label="@string/title_activity_choosecountry"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 
