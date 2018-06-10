@@ -18,7 +18,8 @@ public class FirebaseUsersListInteractor extends Observable {
         //  new Firebase("https://<your-firebase>/currentUsers");
         FirebaseDatabase mFirebaseDb = FirebaseDatabase.getInstance();
         DatabaseReference myRef = mFirebaseDb.getReference();
-        myRef.child("users").child(user.getId()).setValue(user);
+
+        myRef.child(user.getCountry()).child(user.getId()).setValue(user);
     }
 
 }
