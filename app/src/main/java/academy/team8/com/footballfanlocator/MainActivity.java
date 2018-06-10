@@ -17,7 +17,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         findViewById(R.id.login_sign_in_button).setOnClickListener(this);
         findViewById(R.id.login_register_button).setOnClickListener(this);
-
     }
 
     @Override
@@ -32,8 +31,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.i(TAG, "onClick: opening Hander Implementation");
                 MapActivity.start(v.getContext());
                 break;
-
         }
-
     }
 }
