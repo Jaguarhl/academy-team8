@@ -1,40 +1,33 @@
 package academy.team8.com.footballfanlocator.presenters;
 
-import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationManager;
-import android.os.Bundle;
-import android.os.Message;
 import android.util.Log;
 
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import academy.team8.com.footballfanlocator.MapActivity;
-import academy.team8.com.footballfanlocator.SendLocationActivity;
 import academy.team8.com.footballfanlocator.interactors.FirebaseUserLocationInteractor;
-import academy.team8.com.footballfanlocator.interfaces.MapUpdate;
+import academy.team8.com.footballfanlocator.interfaces.MapVIew;
 
 public class SendLocationPresenter implements Observer {
 
     private static final String TAG = "SendLocationPresenter";
     private LocationManager locationManager;
-    private MapUpdate mapActivity;
+    private MapVIew mapVIew;
     private FirebaseUserLocationInteractor firebaseUserLocationInteractor = new FirebaseUserLocationInteractor();
 
-    public SendLocationPresenter(SendLocationActivity mapActivity){
-        this.mapActivity = mapActivity;
+    public SendLocationPresenter(MapVIew mapVIew, LocationManager locationManager){
+        this.mapVIew = mapVIew;
+        this.locationManager =  locationManager;
+    }
 
-        LocationManager locationManager= (LocationManager) mapActivity.getApplicationContext().getSystemService(mapActivity.LOCATION_SERVICE);
-        //https://stackoverflow.com/questions/32491960/android-check-permission-for-locationmanager?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+    public void initialize() {
         try {
             if (locationManager == null){
                 return;
             }
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 50, firebaseUserLocationInteractor);
-            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            Log.i(TAG, "Latitude: " + location.getLatitude() + "\nLongitude: " + location.getLongitude());
         } catch (SecurityException e) {
             Log.e(TAG, "Эх, нихера себе!",e);
         } catch (NullPointerException e){
@@ -49,7 +42,7 @@ public class SendLocationPresenter implements Observer {
             Location location = userLocationInteractor.getCurrentLocation();
 //            Message msg = new Message();
 //            msg.obj = bt;
-            mapActivity.updateCurrentPosition(location);
+            mapVIew.updateCurrentPosition(location);
         }
 
         if(subject instanceof FirebaseUserLocationInteractor){
@@ -57,9 +50,8 @@ public class SendLocationPresenter implements Observer {
             Location location = usersLocationListInteractor.getCurrentLocation();
 //            Message msg = new Message();
 //            msg.obj = bt;
-            mapActivity.updateCurrentPosition(location);
-            mapActivity.updateListUsersPositions(location);
-
+            mapVIew.updateCurrentPosition(location);
+            mapVIew.updateListUsersPositions(location);
         }
     }
 }

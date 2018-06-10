@@ -1,32 +1,39 @@
 package academy.team8.com.footballfanlocator;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
-    // minimum time interval between location updates, in milliseconds
-    private static long LOCATION_REFRESH_TIME = 5 * 1000;
+import android.Manifest;
+import android.util.Log;
 
-    // minimum distance between location updates, in meters
-    private static final float LOCATION_REFRESH_DISTANCE = 500;
+import academy.team8.com.footballfanlocator.interfaces.MapVIew;
+import academy.team8.com.footballfanlocator.presenters.SendLocationPresenter;
+
+public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, MapVIew {
+    private static final int PERMISSION_REQUEST_ID = 12345;
+    private static final String TAG = "MapActivity";
     private GoogleMap googleMap;
     LocationManager locationManager;
-  
-  @Override
+    SendLocationPresenter presenter;
+
+    @SuppressLint("MissingPermission")
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
@@ -36,19 +43,44 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        presenter = new SendLocationPresenter(this,
+                (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE));
+    }
 
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+    private boolean isApplicationHasPermission(String accessFineLocation) {
+        return ContextCompat.checkSelfPermission(
+                this.getApplicationContext(), accessFineLocation) != PackageManager.PERMISSION_GRANTED;
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions();
             return;
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME,
-                LOCATION_REFRESH_DISTANCE, mLocationListener);
+        initialize();
+    }
+
+    private void initialize() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions();
+            return;
+        }
+        Location loc;
+        try {
+            if (locationManager == null) {
+                return;
+            }
+            loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        } catch (SecurityException e) {
+            Log.e(TAG, "initialize", e);
+            return;
+        }
+        SetCameraPosition(loc, 12);
+        presenter.initialize();
     }
 
     private void initializeMap(GoogleMap googleMap) {
@@ -57,34 +89,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
     }
 
-    private void SetCameraPosition(final Location location, float zoom)
-    {
+    private void SetCameraPosition(final Location location, float zoom) {
         LatLng currentPosition = new LatLng(location.getLatitude(), location.getLongitude());
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, zoom));
     }
-
-    private final LocationListener mLocationListener = new LocationListener() {
-        @Override
-        public void onLocationChanged(final Location location) {
-            CameraPosition cam = googleMap.getCameraPosition();
-            SetCameraPosition(location, cam.zoom);
-        }
-
-        @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-
-        }
-
-        @Override
-        public void onProviderEnabled(String provider) {
-
-        }
-
-        @Override
-        public void onProviderDisabled(String provider) {
-
-        }
-    };
 
     public static void start(Context context) {
         context.startActivity(new Intent(context, MapActivity.class));
@@ -93,20 +101,34 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         initializeMap(googleMap);
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        Location loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        SetCameraPosition(loc, 12);
+        requestPermissions();
+    }
 
-        LatLng sydney = new LatLng(59, 30);
-        googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Spb"));
+    @Override
+    public void updateCurrentPosition(Location location) {
+        CameraPosition cam = googleMap.getCameraPosition();
+        SetCameraPosition(location, cam.zoom);
+    }
+
+    @Override
+    public void updateListUsersPositions(Location location) {
+    }
+
+    @Override
+    public void requestPermissions() {
+        boolean needToRequest = false;
+        String[] permissions = new String[1];
+
+        if (isApplicationHasPermission(Manifest.permission.ACCESS_FINE_LOCATION)) {
+            permissions[0] = Manifest.permission.ACCESS_FINE_LOCATION;
+            needToRequest = true;
+        }
+
+        if (needToRequest)
+            ActivityCompat.requestPermissions(this, permissions, PERMISSION_REQUEST_ID);
+        else {
+            //TODO тут умер котенок, протекли абстрациии и нарушен SRP
+            initialize();
+        }
     }
 }
