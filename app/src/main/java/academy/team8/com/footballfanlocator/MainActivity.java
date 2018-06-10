@@ -18,7 +18,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.start_activity_sign_in).setOnClickListener(this);
         findViewById(R.id.start_activity_map).setOnClickListener(this);
         findViewById(R.id.start_activity_send_current_location).setOnClickListener(this);
-
     }
 
     @Override
@@ -32,12 +31,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.i(TAG, "onClick: opening Hander Implementation");
                 MapActivity.start(v.getContext());
                 break;
-            case R.id.start_activity_send_current_location:
-                Log.i(TAG, "onClick: opening Hander Implementation");
-                SendLocationActivity.start(v.getContext());
-                break;
-
         }
-
     }
 }
