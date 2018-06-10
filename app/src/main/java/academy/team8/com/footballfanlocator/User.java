@@ -12,6 +12,7 @@ public class User {
     private String login;
     private Date moment;
     private float latitude, longitude;
+    private String primaryKey;
 
     public float getLatitude(){
         return latitude;
@@ -34,6 +35,7 @@ public class User {
         this.id = UUID.randomUUID();
         this.login = login;
         this.moment = new Date();
+        this.primaryKey = this.id.toString();
     }
 
     public User(String login, float latitude, float longitude)
@@ -45,6 +47,10 @@ public class User {
     public void SetLocation(float latitude, float longitude){
         this.latitude = latitude;
         this.longitude = longitude;
+    }
+
+    public String getPrimaryKey(){
+        return  this.primaryKey;
     }
 
 }
