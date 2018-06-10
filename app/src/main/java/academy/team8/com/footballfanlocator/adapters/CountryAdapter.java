@@ -23,13 +23,12 @@ import academy.team8.com.footballfanlocator.model.CountryItem;
  */
 
 public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.CountryHolder> {
-    List<CountryItem> countryItemList= new ArrayList<>();
+    List<CountryItem> countryItemList = new ArrayList<>();
 
     OnItemClickListener listener;
 
 
-
-    private final View.OnClickListener internalClickListener =new View.OnClickListener() {
+    private final View.OnClickListener internalClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             //here is whaterver i wanna do on click
@@ -37,42 +36,49 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.CountryH
     };
 
 
+    public CountryAdapter(@NonNull OnItemClickListener onItemClickListener, List<CountryItem> countryItemList) {
 
-  public CountryAdapter(@NonNull  OnItemClickListener onItemClickListener, List<CountryItem> countryItemList){
-
-      this.listener = onItemClickListener;
-      this.countryItemList = countryItemList;
-  }
+        this.listener = onItemClickListener;
+        this.countryItemList = countryItemList;
+    }
 
     @NonNull
     @Override
     public CountryAdapter.CountryHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        return new CountryHolder(inflater.inflate(R.layout.item_country, parent,false));
+        return new CountryHolder(inflater.inflate(R.layout.item_country, parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull CountryAdapter.CountryHolder holder, final int position) {
-      CountryItem country = countryItemList.get(position);
-      holder.country.setText(country.getCountryName());
-      holder.layoutCountryTitle.setOnClickListener(v -> listener.onItemClicked(position));
+        CountryItem country = countryItemList.get(position);
+        holder.country.setText(country.getCountryName());
+        holder.layoutCountryTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemClicked(position);
+            }
+        });
 
     }
 
     @Override
-    public int getItemCount() {return  countryItemList.size();}
+    public int getItemCount() {
+        return countryItemList.size();
+    }
 
-    static class CountryHolder extends RecyclerView.ViewHolder{
+    static class CountryHolder extends RecyclerView.ViewHolder {
 
-       TextView country;
-       ImageView flag;
-       LinearLayout layoutCountryTitle;
-        CountryHolder(@NonNull View itemView){
+        TextView country;
+        ImageView flag;
+        LinearLayout layoutCountryTitle;
+
+        CountryHolder(@NonNull View itemView) {
             super(itemView);
 
-            layoutCountryTitle =itemView.findViewById(R.id.layoutCountry);
-            flag=itemView.findViewById(R.id.imageFlag);
-            country =itemView.findViewById(R.id.textCountry);
+            layoutCountryTitle = itemView.findViewById(R.id.layoutCountry);
+            flag = itemView.findViewById(R.id.imageFlag);
+            country = itemView.findViewById(R.id.textCountry);
         }
     }
 
