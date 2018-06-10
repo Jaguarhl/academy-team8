@@ -36,7 +36,7 @@ public class SendLocationPresenter implements Observer {
                 Log.i(TAG, "LocationManager is null");
                 return;
             }
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 50, firebaseUserLocationInteractor);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 50, firebaseUserLocationInteractor);
         } catch (SecurityException e) {
             Log.i(TAG, "Эх, нихера себе!", e);
         } catch (NullPointerException e) {
