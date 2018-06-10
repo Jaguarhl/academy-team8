@@ -13,13 +13,12 @@ public class FirebaseUsersListInteractor extends Observable {
 
     private String TAG = "FirebaseListInteractor";
 
-    public void init(){
+    public void updateUserCoordinates(User user){
         Log.i(TAG, "пришел!!!");
         //  new Firebase("https://<your-firebase>/currentUsers");
         FirebaseDatabase mFirebaseDb = FirebaseDatabase.getInstance();
         DatabaseReference myRef = mFirebaseDb.getReference();
-        User user = new User("ash_williams@mail.ru");
-        myRef.child("users").child(user.getPrimaryKey()).setValue(user);
+        myRef.child("users").child(user.getId()).setValue(user);
     }
 
 }
