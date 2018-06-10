@@ -9,6 +9,7 @@ import java.util.Observer;
 
 import academy.team8.com.footballfanlocator.User;
 import academy.team8.com.footballfanlocator.interactors.FirebaseUserLocationInteractor;
+import academy.team8.com.footballfanlocator.interactors.FirebaseUsersListInteractor;
 import academy.team8.com.footballfanlocator.interfaces.MapVIew;
 import academy.team8.com.footballfanlocator.interactors.FirebaseUsersListInteractor;
 

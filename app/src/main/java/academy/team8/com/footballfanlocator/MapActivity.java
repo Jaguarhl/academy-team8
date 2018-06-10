@@ -1,6 +1,7 @@
 package academy.team8.com.footballfanlocator;
 
 import android.annotation.SuppressLint;
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -41,12 +42,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         MapFragment mapFragment = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.mapFragment);
         mapFragment.getMapAsync(this);
+        ApplicationSettings settings =  new ApplicationSettings(this.getApplicationContext());
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         presenter = new SendLocationPresenter(this,
                 (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE),
-                new ApplicationSettings(getApplicationContext()).getCurrentUser()
-        );
+                settings.getCurrentUser());
     }
 
     private boolean isApplicationHasPermission(String accessFineLocation) {
