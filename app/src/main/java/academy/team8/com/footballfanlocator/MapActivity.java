@@ -44,7 +44,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         presenter = new SendLocationPresenter(this,
-                (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE));
+                (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE),
+                new ApplicationSettings(getApplicationContext()).getCurrentUser()
+        );
     }
 
     private boolean isApplicationHasPermission(String accessFineLocation) {

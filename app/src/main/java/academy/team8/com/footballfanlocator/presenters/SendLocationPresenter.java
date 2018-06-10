@@ -7,12 +7,10 @@ import android.util.Log;
 import java.util.Observable;
 import java.util.Observer;
 
-import academy.team8.com.footballfanlocator.MapActivity;
-import academy.team8.com.footballfanlocator.SendLocationActivity;
+import academy.team8.com.footballfanlocator.User;
 import academy.team8.com.footballfanlocator.interactors.FirebaseUserLocationInteractor;
 import academy.team8.com.footballfanlocator.interfaces.MapVIew;
 import academy.team8.com.footballfanlocator.interactors.FirebaseUsersListInteractor;
-import academy.team8.com.footballfanlocator.interfaces.MapUpdate;
 
 public class SendLocationPresenter implements Observer {
 
@@ -23,9 +21,10 @@ public class SendLocationPresenter implements Observer {
     private FirebaseUsersListInteractor firebaseUsersListInteractor = new FirebaseUsersListInteractor();
     private User user;
 
-    public SendLocationPresenter(MapVIew mapVIew, LocationManager locationManager){
+    public SendLocationPresenter(MapVIew mapVIew, LocationManager locationManager, User user) {
         this.mapVIew = mapVIew;
-        this.locationManager =  locationManager;
+        this.locationManager = locationManager;
+        this.user = user;
     }
 
     public void initialize() {
@@ -62,7 +61,7 @@ public class SendLocationPresenter implements Observer {
             ////////////////////////////////
             user.setLocation(latitude, longtitude);
             firebaseUserLocationInteractor.updateUserCoordinates(user);
-            mapActivity.updateCurrentPosition(location);
+            mapVIew.updateCurrentPosition(location);
         }
 
         if (subject instanceof FirebaseUsersListInteractor) {
