@@ -12,6 +12,24 @@ public class User {
     private String login;
     private Date moment;
     private float latitude, longitude;
+    private String country;
+
+    public String getCountry(){
+        return country;
+    }
+
+    public void setCountry(String country)
+    {
+        this.country = country;
+    }
+
+    public String getLogin(){
+        return login;
+    }
+
+    public void setLogin(String login){
+        this.login = login;
+    }
 
     public float getLatitude(){
         return latitude;
@@ -21,30 +39,32 @@ public class User {
         return longitude;
     }
 
-    public Date getDate(){
-        return moment;
+    public void setLocation(float latitude, float longitude){
+        this.latitude = latitude;
+        this.longitude = longitude;
+        updateDate();
+    }
+
+    public void setId(UUID id){
+        this.id = id;
+    }
+    public void setId(String id){
+        this.id = UUID.fromString(id);
     }
 
     public UUID getId(){
         return id;
     }
 
-    public User(String login)
-    {
-        this.id = UUID.randomUUID();
-        this.login = login;
-        this.moment = new Date();
+    public void updateDate() {
+        setDate(new Date());
     }
 
-    public User(String login, float latitude, float longitude)
-    {
-        this(login);
-        SetLocation(latitude, longitude);
+    public void setDate(Date date) {
+        this.moment = date;
     }
 
-    public void SetLocation(float latitude, float longitude){
-        this.latitude = latitude;
-        this.longitude = longitude;
+    public Date getDate(){
+        return moment;
     }
-
 }
