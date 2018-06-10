@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Football fan locator</string>
+    <string name="title_activity_choosecountry">activity_choosecountry</string>
 </resources>
