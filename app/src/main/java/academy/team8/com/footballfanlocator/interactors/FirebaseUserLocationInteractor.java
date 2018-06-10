@@ -57,6 +57,7 @@ public class FirebaseUserLocationInteractor extends Observable implements Locati
         //  new Firebase("https://<your-firebase>/currentUsers");
         FirebaseDatabase mFirebaseDb = FirebaseDatabase.getInstance();
         DatabaseReference myRef = mFirebaseDb.getReference();
-        myRef.child("users").child(user.getId()).setValue(user);
+        String country =  user.getCountry();
+        myRef.child(country).child(user.getId()).setValue(user);
     }
 }
