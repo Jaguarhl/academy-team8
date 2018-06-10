@@ -15,26 +15,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        findViewById(R.id.start_activity_sign_in).setOnClickListener(this);
-        findViewById(R.id.start_activity_map).setOnClickListener(this);
-        findViewById(R.id.start_activity_send_current_location).setOnClickListener(this);
+        findViewById(R.id.login_sign_in_button).setOnClickListener(this);
+        findViewById(R.id.login_register_button).setOnClickListener(this);
 
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.start_activity_sign_in:
+            case R.id.login_sign_in_button:
                 Log.i(TAG, "onClick: opening AsyncTaskImplementation");
-                SignInActivity.start(v.getContext());
+
+               // SignInActivity.start(v.getContext());
                 break;
-            case R.id.start_activity_map:
+            case R.id.login_register_button:
                 Log.i(TAG, "onClick: opening Hander Implementation");
                 MapActivity.start(v.getContext());
-                break;
-            case R.id.start_activity_send_current_location:
-                Log.i(TAG, "onClick: opening Hander Implementation");
-                SendLocationActivity.start(v.getContext());
                 break;
 
         }
