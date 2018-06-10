@@ -61,8 +61,11 @@ public class SendLocationActivity extends AppCompatActivity implements MapUpdate
         if (needToRequest) {
             requestPermissions(permissions);
         }
+        User user = new ApplicationSettings(getApplicationContext()).getCurrentUser();
 
-        sendLocationPresenter = new SendLocationPresenter(this);
+        sendLocationPresenter = new SendLocationPresenter(this,
+               user
+        );
 
     }
 

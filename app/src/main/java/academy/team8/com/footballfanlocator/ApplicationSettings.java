@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.util.UUID;
+
 /**
  * Created by anton.gorbunov on 10.06.2018.
  */
@@ -15,43 +17,55 @@ class ApplicationSettings {
     private static final String LATITUDE = "LATITUDE";
     private static final String LONGITUDE = "LONGITUDE";
     private static final String COUNTRY = "COUNTRY";
+    private static final String CONTACT = "CONTACT";
     SharedPreferences preferences;
 
-    public ApplicationSettings(Application application) {
+    public ApplicationSettings(Context application) {
         preferences = application.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        String id1 = getId();
+        if (id1 == null) {
+            setId(UUID.randomUUID().toString());
+        }
+        id1 = getId();
+
     }
 
-    public void setCurrentUser(User user)
-    {
-        setId(user.getId().toString());
+    public void setCurrentUser(User user) {
+        setId(user.getId());
         setUserInfo(user.getLogin(), user.getCountry());
         setLocation(user.getLatitude(), user.getLongitude());
     }
 
-    public void setId(String id)
-    {
-        preferences.edit().putString(ID, id.toString());
-        preferences.edit().commit();
+    private void setId(String id) {
+        SharedPreferences.Editor edit = preferences.edit();
+        edit.putString(ID, id).commit();
     }
 
-    public void setUserInfo(String login, String country)
-    {
-        preferences.edit().putString(LOGIN, login);
-        preferences.edit().putString(COUNTRY, country);
-        preferences.edit().commit();
+    private String getId() {
+        return preferences.getString(ID, null);
     }
 
-    public void setLocation(float latitude, float longitude){
-        preferences.edit().putFloat(LONGITUDE, longitude);
-        preferences.edit().putFloat(LATITUDE, latitude);
-        preferences.edit().commit();
+
+    public void setUserInfo(String login, String country) {
+        SharedPreferences.Editor edit = preferences.edit();
+        edit.putString(LOGIN, login);
+        edit.putString(COUNTRY, country);
+        edit.putString(CONTACT, "@EmilAshWilliams");
+        edit.commit();
     }
 
-    public User getCurrentUser()
-    {
+    public void setLocation(float latitude, float longitude) {
+        SharedPreferences.Editor edit = preferences.edit();
+        edit.putFloat(LONGITUDE, longitude);
+        edit.putFloat(LATITUDE, latitude);
+        edit.commit();
+    }
+
+    public User getCurrentUser() {
         String login = preferences.getString(LOGIN, null);
-        if(login == null)
-        {
+        //TODO
+        login = "ash_williams@mail";
+        if (login == null) {
             return null;
         }
         User user = new User();

@@ -1,19 +1,18 @@
 package academy.team8.com.footballfanlocator;
 
 import java.util.Date;
-import java.util.UUID;
 
 /**
  * Created by anton.gorbunov on 10.06.2018.
  */
 
 public class User {
-    private UUID id;
+    private String id;
     private String login;
     private Date moment;
     private float latitude, longitude;
-    private String primaryKey;
     private String country;
+    private String primaryKey;
 
     public String getCountry(){
         return country;
@@ -46,25 +45,16 @@ public class User {
         updateDate();
     }
 
-    public void setId(UUID id){
+    public void setId(String id){
         this.id = id;
     }
-    public void setId(String id){
-        this.id = UUID.fromString(id);
-    }
 
-    public UUID getId(){
+    public String getId(){
         return id;
     }
 
     public void updateDate() {
         setDate(new Date());
-    public User(String login)
-    {
-        this.id = UUID.randomUUID();
-        this.login = login;
-        this.moment = new Date();
-        this.primaryKey = this.id.toString();
     }
 
     public void setDate(Date date) {
@@ -74,9 +64,4 @@ public class User {
     public Date getDate(){
         return moment;
     }
-
-    public String getPrimaryKey(){
-        return  this.primaryKey;
-    }
-
 }
