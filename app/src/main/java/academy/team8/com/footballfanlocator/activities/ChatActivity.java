@@ -12,7 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import academy.team8.com.footballfanlocator.R;
@@ -47,11 +49,6 @@ public class ChatActivity extends AppCompatActivity implements HolywarView {
                 presenter.sendMessage(msg);
             }
         });
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
         presenter.initialize();
     }
 
@@ -64,11 +61,11 @@ public class ChatActivity extends AppCompatActivity implements HolywarView {
 
     private void showMessages(List<ChatMessage> messages) {
         StringBuilder output = new StringBuilder();
-        String rn = System.getProperty("line.separator");
         Collections.sort(messages, ChatMessageComarator.byDate());
         for(ChatMessage msg : messages)
         {
-            output.append(msg.getDate().toString()).append(" <b>").append(msg.getLogin()).append(":</b>").append(msg.getMessage()).append(rn);
+            String date = new SimpleDateFormat("HH:mm:ss").format(msg.getDate());
+            output.append(date).append(" <b>").append(msg.getLogin()).append(":</b>").append(msg.getMessage()).append("<br>");
         }
 
         textView.setText(Html.fromHtml(output.toString()));
