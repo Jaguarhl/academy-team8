@@ -6,6 +6,6 @@ import academy.team8.com.footballfanlocator.model.ChatMessage;
 
 public interface HolywarView {
 
-    void updateListUsersPositions(List<ChatMessage> location);
+    void onChatUpdate(List<ChatMessage> location);
 
 }
