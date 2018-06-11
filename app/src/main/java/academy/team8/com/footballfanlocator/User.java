@@ -1,10 +1,8 @@
 package academy.team8.com.footballfanlocator;
 
-import java.util.Date;
+import com.google.android.gms.maps.model.LatLng;
 
-/**
- * Created by anton.gorbunov on 10.06.2018.
- */
+import java.util.Date;
 
 public class User {
     private String id;
@@ -13,6 +11,7 @@ public class User {
     private float latitude, longitude;
     private String country;
     private String primaryKey;
+    private String contact;
 
     public String getCountry(){
         return country;
@@ -63,5 +62,13 @@ public class User {
 
     public Date getDate(){
         return moment;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public LatLng getLatLng() {
+        return  new LatLng(latitude, longitude);
     }
 }
