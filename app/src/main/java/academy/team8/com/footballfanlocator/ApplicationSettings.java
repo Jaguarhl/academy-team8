@@ -1,14 +1,9 @@
 package academy.team8.com.footballfanlocator;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
 import java.util.UUID;
-
-/**
- * Created by anton.gorbunov on 10.06.2018.
- */
 
 class ApplicationSettings {
     private static final String APPLICATION_PREFS_NAME = "FANS_LOCATOR_PREFS";
@@ -18,16 +13,13 @@ class ApplicationSettings {
     private static final String LONGITUDE = "LONGITUDE";
     private static final String COUNTRY = "COUNTRY";
     private static final String CONTACT = "CONTACT";
-    SharedPreferences preferences;
+    private SharedPreferences preferences;
 
     public ApplicationSettings(Context application) {
         preferences = application.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        String id1 = getId();
-        if (id1 == null) {
+        if (getId() == null) {
             setId(UUID.randomUUID().toString());
         }
-        id1 = getId();
-
     }
 
     public void setCurrentUser(User user) {
@@ -46,11 +38,16 @@ class ApplicationSettings {
     }
 
 
-    public void setUserInfo(String login, String country) {
+    public void setUserInfo(String login, String contact) {
         SharedPreferences.Editor edit = preferences.edit();
         edit.putString(LOGIN, login);
+        edit.putString(CONTACT, contact);
+        edit.commit();
+    }
+
+    public void setCountry(String country) {
+        SharedPreferences.Editor edit = preferences.edit();
         edit.putString(COUNTRY, country);
-        edit.putString(CONTACT, "@EmilAshWilliams");
         edit.commit();
     }
 

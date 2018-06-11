@@ -1,6 +1,7 @@
 package academy.team8.com.footballfanlocator;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
@@ -97,10 +98,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, zoom));
     }
 
-    public static void start(Context context) {
-        context.startActivity(new Intent(context, MapActivity.class));
-    }
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
         initializeMap(googleMap);
@@ -133,5 +130,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             //TODO тут умер котенок, протекли абстрациии и нарушен SRP
             initialize();
         }
+    }
+
+    public static void start(Activity activity) {
+        Intent mapActivity = new Intent(activity, MapActivity.class);
+        activity.startActivity(mapActivity);
     }
 }
