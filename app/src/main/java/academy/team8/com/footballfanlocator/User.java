@@ -71,4 +71,16 @@ public class User {
     public LatLng getLatLng() {
         return  new LatLng(latitude, longitude);
     }
+
+    public String getPrimaryKey() {
+        return primaryKey;
+    }
+
+    public void setPrimaryKey(String primaryKey) {
+        this.primaryKey = primaryKey;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
 }

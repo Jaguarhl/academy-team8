@@ -67,6 +67,7 @@ class ApplicationSettings {
         user.setId(getId());
         user.setLogin(getLogin());
         user.setCountry(getCountry());
+        user.setContact(getContact());
         user.setLocation(
                 preferences.getFloat(LATITUDE, 0),
                 preferences.getFloat(LONGITUDE, 0));
@@ -79,5 +80,9 @@ class ApplicationSettings {
 
     public String getCountry() {
         return preferences.getString(COUNTRY, null);
+    }
+
+    public String getContact() {
+        return preferences.getString(CONTACT, null);
     }
 }
