@@ -23,10 +23,16 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
 
 import android.Manifest;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+
+import java.util.List;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +40,7 @@ import java.util.List;
 import academy.team8.com.footballfanlocator.interfaces.MapVIew;
 import academy.team8.com.footballfanlocator.presenters.SendLocationPresenter;
 
-public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, MapVIew {
+public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, MapVIew, GoogleMap.OnMarkerClickListener, GoogleMap.OnInfoWindowClickListener {
     private static final int PERMISSION_REQUEST_ID = 12345;
     private static final String TAG = "MapActivity";
     private GoogleMap googleMap;
@@ -97,9 +103,35 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         presenter.initialize();
     }
 
+    private Context getContext()
+    {
+        return this.getContext();
+    }
+
     private void initializeMap(GoogleMap googleMap) {
         if (this.googleMap == null) {
             this.googleMap = googleMap;
+
+            googleMap.setOnMarkerClickListener(this);
+            googleMap.setOnInfoWindowClickListener(this);
+            googleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+                @Override
+                public View getInfoWindow(Marker marker) {
+                    TextView text = new TextView(getContext());
+                    text.setText(R.string.call_telegram);
+                    return text;
+                }
+
+                @Override
+                public View getInfoContents(Marker marker) {
+                    if (marker != null
+                            && marker.isInfoWindowShown()) {
+                        marker.hideInfoWindow();
+                        marker.showInfoWindow();
+                    }
+                    return null;
+                }
+            });
         }
     }
 
@@ -156,5 +188,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public static void start(Activity activity) {
         Intent mapActivity = new Intent(activity, MapActivity.class);
         activity.startActivity(mapActivity);
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        return false;
+    }
+
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+        marker.getTag();
     }
 }
