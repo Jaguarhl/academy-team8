@@ -69,7 +69,6 @@ class ApplicationSettings {
         user.setId(preferences.getString(ID, null));
         user.setLogin(preferences.getString(LOGIN, null));
         user.setCountry(preferences.getString(COUNTRY, null));
-        user.setCountry("england");
         user.setLocation(
                 preferences.getFloat(LATITUDE, 0),
                 preferences.getFloat(LONGITUDE, 0));

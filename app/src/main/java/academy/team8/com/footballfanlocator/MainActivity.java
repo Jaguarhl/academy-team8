@@ -1,5 +1,7 @@
 package academy.team8.com.footballfanlocator;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -17,6 +19,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        SignInActivity.start(this);
+
+        SharedPreferences preferences = getSharedPreferences("FANS_LOCATOR_PREFS", Context.MODE_PRIVATE);
+        if (preferences.getString("LOGIN", null) == null) {
+            SignInActivity.start(this);
+        } else {
+            MapActivity.start(this);
+        }
     }
 }
