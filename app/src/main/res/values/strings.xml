@@ -8,4 +8,6 @@
     <string name="error_field_required">Required</string>
     <string name="call_telegram">Connect</string>
     <string name="error_field_invalid">allow phone or telegram</string>
+    <string name="relogin">Registration</string>
+    <string name="chat">HolyWar</string>
 </resources>
