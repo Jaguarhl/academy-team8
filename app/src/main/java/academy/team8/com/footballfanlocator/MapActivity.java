@@ -223,7 +223,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         if (needToRequest)
             ActivityCompat.requestPermissions(this, permissions, PERMISSION_REQUEST_ID);
         else {
-            //TODO тут умер котенок, протекли абстрациии и нарушен SRP
+            //TODO тут протекли абстрации в умершего котёнка и нарушили SRP
             initialize();
         }
     }
