@@ -1,9 +1,10 @@
-package academy.team8.com.footballfanlocator;
+package academy.team8.com.footballfanlocator.activities;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import academy.team8.com.footballfanlocator.R;
+import academy.team8.com.footballfanlocator.Utils.ApplicationSettings;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         if (settings.getLogin() == null) {
             SignInActivity.start(this);
         } else if (settings.getCountry() == null) {
-            ActivityChooseCountry.start(this);
+            ChooseCountryActivity.start(this);
         } else {
             MapActivity.start(this);
         }

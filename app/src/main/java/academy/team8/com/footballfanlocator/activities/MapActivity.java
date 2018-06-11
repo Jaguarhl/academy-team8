@@ -1,4 +1,4 @@
-package academy.team8.com.footballfanlocator;
+package academy.team8.com.footballfanlocator.activities;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -36,6 +36,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.Calendar;
 import java.util.List;
 
+import academy.team8.com.footballfanlocator.R;
+import academy.team8.com.footballfanlocator.model.User;
+import academy.team8.com.footballfanlocator.Utils.ApplicationSettings;
+import academy.team8.com.footballfanlocator.Utils.StringUtil;
 import academy.team8.com.footballfanlocator.interfaces.MapVIew;
 import academy.team8.com.footballfanlocator.presenters.SendLocationPresenter;
 

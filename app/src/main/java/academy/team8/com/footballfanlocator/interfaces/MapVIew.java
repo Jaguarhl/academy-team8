@@ -4,7 +4,7 @@ import android.location.Location;
 
 import java.util.List;
 
-import academy.team8.com.footballfanlocator.User;
+import academy.team8.com.footballfanlocator.model.User;
 
 public interface MapVIew {
     void updateCurrentPosition(Location location);

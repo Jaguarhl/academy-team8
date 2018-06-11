@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Найди фанатов</string>
     <string name="title_activity_choosecountry">Выберите страну за которую болеете</string>
-    <string name="loading">Загрузка</string>
+    <string name="loading">Загрузка&#8230;</string>
     <string name="nickname">Логин</string>
     <string name="contact">Телеграм тэг</string>
     <string name="sign_in">Войти</string>
@@ -40,4 +40,5 @@
     <string name="panama">Панама</string>
     <string name="south_korea">Республика Корея</string>
     <string name="saudi_arabia">Саудовская Аравия</string>
+    <string name="error_field_invalid">Телефон или телеграм</string>
 </resources>

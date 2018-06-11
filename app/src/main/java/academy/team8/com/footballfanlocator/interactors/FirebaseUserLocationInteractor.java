@@ -11,8 +11,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Observable;
 
-import academy.team8.com.footballfanlocator.User;
-import academy.team8.com.footballfanlocator.presenters.SendLocationPresenter;
+import academy.team8.com.footballfanlocator.model.User;
 
 public class FirebaseUserLocationInteractor extends Observable implements LocationListener {
     private static final String TAG = "FirebaseLocationInter";

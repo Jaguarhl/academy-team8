@@ -1,11 +1,12 @@
-package academy.team8.com.footballfanlocator;
+package academy.team8.com.footballfanlocator.model;
 
 import java.util.Date;
 
-public class Holivar {
+public class ChatMessage {
     private String login;
     private Date moment;
     private String message;
+    private String country;
 
     public String getLogin() {
         return login;
@@ -33,5 +34,13 @@ public class Holivar {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 }

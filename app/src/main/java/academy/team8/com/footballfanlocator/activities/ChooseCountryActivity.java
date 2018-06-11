@@ -1,4 +1,4 @@
-package academy.team8.com.footballfanlocator;
+package academy.team8.com.footballfanlocator.activities;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,11 +14,12 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import academy.team8.com.footballfanlocator.R;
 import academy.team8.com.footballfanlocator.adapters.CountryAdapter;
 import academy.team8.com.footballfanlocator.interfaces.OnItemClickListener;
 import academy.team8.com.footballfanlocator.model.CountryItem;
 
-public class ActivityChooseCountry extends AppCompatActivity implements OnItemClickListener {
+public class ChooseCountryActivity extends AppCompatActivity implements OnItemClickListener {
     private RecyclerView myRecylerView;
     private ArrayList<CountryItem> countryLists;
 
@@ -81,7 +82,7 @@ public class ActivityChooseCountry extends AppCompatActivity implements OnItemCl
     }
 
     public static void start(Activity activity) {
-        Intent chooseCountryActivity = new Intent(activity, ActivityChooseCountry.class);
+        Intent chooseCountryActivity = new Intent(activity, ChooseCountryActivity.class);
         activity.startActivity(chooseCountryActivity);
     }
 
