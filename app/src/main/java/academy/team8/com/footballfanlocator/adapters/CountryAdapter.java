@@ -1,20 +1,18 @@
 package academy.team8.com.footballfanlocator.adapters;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import academy.team8.com.footballfanlocator.R;
-import academy.team8.com.footballfanlocator.interfaces.OnItemClickListener;
 import academy.team8.com.footballfanlocator.model.CountryItem;
 
 
@@ -22,67 +20,65 @@ import academy.team8.com.footballfanlocator.model.CountryItem;
  * Created by dmitry on 10.06.2018.
  */
 
-public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.CountryHolder> {
-    List<CountryItem> countryItemList = new ArrayList<>();
+public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.FighterImageViewHolder> {
+    private ArrayList<CountryItem> countryList;
+    private final View.OnClickListener mOnClickListener = new MyOnClickListener();
 
-    OnItemClickListener listener;
-
-
-    private final View.OnClickListener internalClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            //here is whaterver i wanna do on click
-        }
-    };
-
-
-    public CountryAdapter(@NonNull OnItemClickListener onItemClickListener, List<CountryItem> countryItemList) {
-
-        this.listener = onItemClickListener;
-        this.countryItemList = countryItemList;
+    // Provide a suitable constructor (depends on the kind of dataset)
+    public CountryAdapter(ArrayList<CountryItem> fightersList) {
+        this.countryList = fightersList;
     }
 
     @NonNull
     @Override
-    public CountryAdapter.CountryHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FighterImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        return new CountryHolder(inflater.inflate(R.layout.item_country, parent, false));
+        View itemView = inflater.inflate(R.layout.item_country, parent, false);
+        itemView.setOnClickListener(mOnClickListener);
+        return new FighterImageViewHolder(itemView);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull CountryAdapter.CountryHolder holder, final int position) {
-        CountryItem country = countryItemList.get(position);
-        holder.country.setText(country.getCountryName());
-        holder.layoutCountryTitle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listener.onItemClicked(position);
-            }
-        });
-
+    // Replace the contents of a view (invoked by the layout manager)
+    public void onBindViewHolder(@NonNull FighterImageViewHolder holder, int position) {
+        CountryItem countryItem = countryList.get(position);
+        Context context = holder.countryFlag.getContext();
+        int id = context.getResources().getIdentifier(countryItem.getFlagPic(), "drawable", context.getPackageName());
+        holder.countryFlag.setImageResource(id);
+        holder.countryName.setText(countryItem.getCountryName());
     }
 
     @Override
     public int getItemCount() {
-        return countryItemList.size();
+        return countryList.size();
     }
 
-    static class CountryHolder extends RecyclerView.ViewHolder {
+    // Provide a reference to the views for each data item
+    // Complex data items may need more than one view per item, and
+    // you provide access to all the views for a data item in a view holder
+    static class FighterImageViewHolder extends RecyclerView.ViewHolder {
+        // each data item is just a string in this case
+        ImageView countryFlag;
+        TextView countryName;
 
-        TextView country;
-        ImageView flag;
-        LinearLayout layoutCountryTitle;
-
-        CountryHolder(@NonNull View itemView) {
+        FighterImageViewHolder(View itemView) {
             super(itemView);
-
-            layoutCountryTitle = itemView.findViewById(R.id.layoutCountry);
-            flag = itemView.findViewById(R.id.imageFlag);
-            country = itemView.findViewById(R.id.textCountry);
+            countryFlag = itemView.findViewById(R.id.country_flag_image_view);
+            countryName = itemView.findViewById(R.id.country_name_text_view);
         }
     }
 
-
+    private class MyOnClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(final View view) {
+            Toast.makeText(view.getContext(), "Get over here!", Toast.LENGTH_LONG).show();
+            //MediaPlayer mPlayer = MediaPlayer.create(view.getContext(), R.raw.mk);
+            //mPlayer.start();
+        }
+    }
 }
+
+
+
+
 
 

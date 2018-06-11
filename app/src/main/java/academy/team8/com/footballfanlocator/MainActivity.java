@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.login_register_button:
                 Log.i(TAG, "onClick: opening Hander Implementation");
-                MapActivity.start(v.getContext());
+                ActivityChooseCountry.start(v.getContext());
                 break;
         }
     }

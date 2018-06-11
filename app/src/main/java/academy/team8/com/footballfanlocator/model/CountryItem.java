@@ -6,8 +6,16 @@ package academy.team8.com.footballfanlocator.model;
 
 public class CountryItem {
     int countryId;
+    String countryPk;
     String flagPic;
     String countryName;
+
+    public CountryItem(int id, String countryPk, String countryName, String flagPic) {
+        this.countryId = id;
+        this.countryPk = countryPk;
+        this.countryName = countryName;
+        this.flagPic = flagPic;
+    }
 
     public int getCountryId() {
         return countryId;

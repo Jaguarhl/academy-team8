@@ -23,6 +23,8 @@ import com.google.android.gms.maps.model.LatLng;
 import android.Manifest;
 import android.util.Log;
 
+import java.util.List;
+
 import academy.team8.com.footballfanlocator.interfaces.MapVIew;
 import academy.team8.com.footballfanlocator.presenters.SendLocationPresenter;
 
@@ -42,7 +44,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         MapFragment mapFragment = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.mapFragment);
         mapFragment.getMapAsync(this);
-        ApplicationSettings settings =  new ApplicationSettings(this.getApplicationContext());
+        ApplicationSettings settings = new ApplicationSettings(this.getApplicationContext());
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         presenter = new SendLocationPresenter(this,
@@ -114,7 +116,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     @Override
-    public void updateListUsersPositions(Location location) {
+    public void updateListUsersPositions(List<User> userList) {
     }
 
     @Override
