@@ -1,5 +1,9 @@
 package academy.team8.com.footballfanlocator;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +18,7 @@ import academy.team8.com.footballfanlocator.model.CountryItem;
 
 public class ActivityChooseCountry extends AppCompatActivity implements OnItemClickListener {
     private RecyclerView myRecylerView;
+    private ArrayList<CountryItem> countryLists;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +30,7 @@ public class ActivityChooseCountry extends AppCompatActivity implements OnItemCl
         myRecylerView.setHasFixedSize(true);
         // use a linear layout manager
         myRecylerView.setLayoutManager(new LinearLayoutManager(this));
-        ArrayList<CountryItem> countryLists = new ArrayList<>();
+        countryLists = new ArrayList<>();
         countryLists.add(new CountryItem(1, "russia", "Russia", "rus"));
         countryLists.add(new CountryItem(2, "germany", "Germany", "ger"));
         countryLists.add(new CountryItem(3, "brazil", "Brazil", "braz"));
@@ -65,14 +70,15 @@ public class ActivityChooseCountry extends AppCompatActivity implements OnItemCl
 
     @Override
     public void onItemClicked(int position) {
+        SharedPreferences preferences = getSharedPreferences("FANS_LOCATOR_PREFS", Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = preferences.edit();
+        edit.putString("COUNTRY", countryLists.get(position).getCountryPk()).commit();
+        start(this);
     }
 
     public static void start(Activity activity) {
-        Intent chooseCountryActivity = new Intent(activity, ActivityChooseCountry.class);
+        Intent chooseCountryActivity = new Intent(activity, MapActivity.class);
         activity.startActivity(chooseCountryActivity);
     }
 
-    public static void start(Context context) {
-        context.startActivity(new Intent(context, ActivityChooseCountry.class));
-    }
 }
