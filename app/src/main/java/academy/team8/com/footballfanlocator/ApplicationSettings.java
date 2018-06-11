@@ -66,12 +66,20 @@ class ApplicationSettings {
             return null;
         }
         User user = new User();
-        user.setId(preferences.getString(ID, null));
-        user.setLogin(preferences.getString(LOGIN, null));
-        user.setCountry(preferences.getString(COUNTRY, null));
+        user.setId(getId());
+        user.setLogin(getLogin());
+        user.setCountry(getCountry());
         user.setLocation(
                 preferences.getFloat(LATITUDE, 0),
                 preferences.getFloat(LONGITUDE, 0));
         return user;
+    }
+
+    public String getLogin() {
+        return preferences.getString(LOGIN, null);
+    }
+
+    public String getCountry() {
+        return preferences.getString(COUNTRY, null);
     }
 }
