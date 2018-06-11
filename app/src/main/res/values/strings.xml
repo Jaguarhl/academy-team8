@@ -6,7 +6,8 @@
     <string name="contact">Your contact</string>
     <string name="sign_in">Sign in</string>
     <string name="error_field_required">Required</string>
-    <string name="call_telegram">Go to telegram</string>
+    <string name="call_telegram">Connect</string>
+    <string name="error_field_invalid">allow phone or telegram</string>
     <string name="russia">Russia</string>
     <string name="germany">Germany</string>
     <string name="brazil">Brazil</string>

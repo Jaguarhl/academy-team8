@@ -60,8 +60,6 @@ class ApplicationSettings {
 
     public User getCurrentUser() {
         String login = preferences.getString(LOGIN, null);
-        //TODO
-        login = "ash_williams@mail";
         if (login == null) {
             return null;
         }
