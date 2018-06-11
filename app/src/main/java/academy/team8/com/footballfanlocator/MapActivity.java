@@ -24,6 +24,8 @@ import com.google.android.gms.maps.model.LatLng;
 import android.Manifest;
 import android.util.Log;
 
+import java.util.List;
+
 import academy.team8.com.footballfanlocator.interfaces.MapVIew;
 import academy.team8.com.footballfanlocator.presenters.SendLocationPresenter;
 
@@ -111,7 +113,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     @Override
-    public void updateListUsersPositions(Location location) {
+    public void updateListUsersPositions(List<User> location) {
+
     }
 
     @Override
