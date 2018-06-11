@@ -15,18 +15,14 @@ import academy.team8.com.footballfanlocator.User;
 import academy.team8.com.footballfanlocator.presenters.SendLocationPresenter;
 
 public class FirebaseUserLocationInteractor extends Observable implements LocationListener {
-
     private static final String TAG = "FirebaseLocationInter";
 
-
-    private SendLocationPresenter presenter;
     private Location currentLocation;
 
     @Override
     public void onLocationChanged(Location location) {
         Log.i(TAG, "changesd");
         currentLocation = location;
-        Log.i(TAG, "тест1" + location.getLatitude() + " test1 " + location.getLongitude());
         this.setChanged();
         notifyObservers();
     }
@@ -48,17 +44,14 @@ public class FirebaseUserLocationInteractor extends Observable implements Locati
     }
 
     public Location getCurrentLocation() {
-        Log.i(TAG, "getCurrentLocation");
         return currentLocation;
     }
 
     public void updateUserCoordinates(User user) {
-        Log.i(TAG, "пришел!!!");
-        //  new Firebase("https://<your-firebase>/currentUsers");
-        FirebaseDatabase mFirebaseDb = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = mFirebaseDb.getReference();
+        Log.i(TAG, "initializeDatabaseListener: login=" + user.getLogin() + "; country=" + user.getCountry());
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = firebaseDatabase.getReference();
         String country =  user.getCountry();
-        country = "england";
         myRef.child(country).child(user.getId()).setValue(user);
     }
 }

@@ -156,6 +156,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public void updateListUsersPositions(List<User> users) {
         if (users == null)
             return;
+        Log.i(TAG, "updateListUsersPositions: users count=" + users.size());
         for (User user : users) {
             {
                 googleMap.addMarker(new MarkerOptions()

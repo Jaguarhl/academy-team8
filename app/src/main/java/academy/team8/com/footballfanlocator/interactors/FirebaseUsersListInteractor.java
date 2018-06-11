@@ -1,8 +1,6 @@
 package academy.team8.com.footballfanlocator.interactors;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,11 +18,9 @@ public class FirebaseUsersListInteractor extends Observable {
     private String TAG = "FirebaseListInteractor";
     private List<User> myList;
 
-    public void updateUserCoordinates(User user) {
-        Log.i(TAG, "пришел!!!");
-        //  new Firebase("https://<your-firebase>/currentUsers");
+    public void initializeDatabaseListener(String county) {
         FirebaseDatabase mFirebaseDb = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = mFirebaseDb.getReference("england");
+        DatabaseReference myRef = mFirebaseDb.getReference(county);
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -40,14 +36,13 @@ public class FirebaseUsersListInteractor extends Observable {
     }
 
     private void getUsersListFromFirebase(DataSnapshot dataSnapshot) {
-        //уже получили по рефу ингленд
         myList = new ArrayList<>();
         for (DataSnapshot item : dataSnapshot.getChildren()) {
             User user = item.getValue(User.class);
             myList.add(user);
-            this.setChanged();
-            notifyObservers();
         }
+        this.setChanged();
+        notifyObservers();
     }
 
     public List<User> getMyList() {

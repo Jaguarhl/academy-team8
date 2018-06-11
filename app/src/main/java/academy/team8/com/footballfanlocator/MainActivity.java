@@ -15,17 +15,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.login_sign_in_button:
-                Log.i(TAG, "onClick: opening AsyncTaskImplementation");
-
-               // SignInActivity.start(v.getContext());
-                break;
-            case R.id.login_register_button:
-                Log.i(TAG, "onClick: opening Hander Implementation");
-                ActivityChooseCountry.start(v.getContext());
-                break;
-        }
+    protected void onStart() {
+        super.onStart();
+        SignInActivity.start(this);
     }
 }
