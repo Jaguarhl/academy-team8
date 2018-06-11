@@ -1,12 +1,10 @@
 package academy.team8.com.footballfanlocator;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
+import android.support.v7.app.AppCompatActivity;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity {
 
     private static String TAG = "MainActivity";
 
@@ -14,9 +12,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        findViewById(R.id.login_sign_in_button).setOnClickListener(this);
-        findViewById(R.id.login_register_button).setOnClickListener(this);
     }
 
     @Override

@@ -1,10 +1,12 @@
 package academy.team8.com.footballfanlocator;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Icon;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -17,12 +19,16 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.Manifest;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import academy.team8.com.footballfanlocator.interfaces.MapVIew;
@@ -34,6 +40,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private GoogleMap googleMap;
     LocationManager locationManager;
     SendLocationPresenter presenter;
+    BitmapDescriptor icon;
 
     @SuppressLint("MissingPermission")
     @Override
@@ -50,6 +57,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         presenter = new SendLocationPresenter(this,
                 (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE),
                 settings.getCurrentUser());
+
+        icon = BitmapDescriptorFactory.fromResource(R.drawable.dot);
     }
 
     private boolean isApplicationHasPermission(String accessFineLocation) {
@@ -99,10 +108,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, zoom));
     }
 
-    public static void start(Context context) {
-        context.startActivity(new Intent(context, MapActivity.class));
-    }
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
         initializeMap(googleMap);
@@ -116,7 +121,18 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     @Override
-    public void updateListUsersPositions(List<User> userList) {
+    public void updateListUsersPositions(List<User> users) {
+        if (users == null)
+            return;
+        for (User user : users) {
+            {
+                googleMap.addMarker(new MarkerOptions()
+                        .title(user.getLogin())
+                        .snippet(user.getContact())
+                        .position(user.getLatLng())
+                        .icon(icon));
+            }
+        }
     }
 
     @Override
@@ -135,5 +151,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             //TODO тут умер котенок, протекли абстрациии и нарушен SRP
             initialize();
         }
+    }
+
+    public static void start(Activity activity) {
+        Intent mapActivity = new Intent(activity, MapActivity.class);
+        activity.startActivity(mapActivity);
     }
 }

@@ -1,7 +1,5 @@
 package academy.team8.com.footballfanlocator;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -67,7 +65,11 @@ public class ActivityChooseCountry extends AppCompatActivity implements OnItemCl
 
     @Override
     public void onItemClicked(int position) {
+    }
 
+    public static void start(Activity activity) {
+        Intent chooseCountryActivity = new Intent(activity, ActivityChooseCountry.class);
+        activity.startActivity(chooseCountryActivity);
     }
 
     public static void start(Context context) {
