@@ -19,10 +19,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        ApplicationSettings settings = new ApplicationSettings(this.getApplicationContext());
 
-        SharedPreferences preferences = getSharedPreferences("FANS_LOCATOR_PREFS", Context.MODE_PRIVATE);
-        if (preferences.getString("LOGIN", null) == null) {
+        if (settings.getLogin() == null) {
             SignInActivity.start(this);
+        } else if (settings.getCountry() == null) {
+            ActivityChooseCountry.start(this);
         } else {
             MapActivity.start(this);
         }
