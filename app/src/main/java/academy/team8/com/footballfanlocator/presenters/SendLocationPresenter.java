@@ -11,7 +11,6 @@ import academy.team8.com.footballfanlocator.User;
 import academy.team8.com.footballfanlocator.interactors.FirebaseUserLocationInteractor;
 import academy.team8.com.footballfanlocator.interactors.FirebaseUsersListInteractor;
 import academy.team8.com.footballfanlocator.interfaces.MapVIew;
-import academy.team8.com.footballfanlocator.interactors.FirebaseUsersListInteractor;
 
 public class SendLocationPresenter implements Observer {
 
@@ -29,7 +28,7 @@ public class SendLocationPresenter implements Observer {
     }
 
     public void initialize() {
-        firebaseUsersListInteractor.updateUserCoordinates(this.user);
+        firebaseUsersListInteractor.initializeDatabaseListener(this.user.getCountry());
         firebaseUserLocationInteractor.addObserver(this);
         Log.i(TAG, "Location init");
         try {
@@ -43,29 +42,27 @@ public class SendLocationPresenter implements Observer {
         } catch (NullPointerException e) {
             Log.i(TAG, "null pointer", e);
         }
-
-
     }
 
     @Override
     public void update(Observable subject, Object arg) {
-        Log.i(TAG, "update: пришел!!! ");
+        Log.i(TAG, "update ");
         if (subject instanceof FirebaseUserLocationInteractor) {
+            Log.i(TAG, "FirebaseUserLocationInteractor ");
             FirebaseUserLocationInteractor userLocationInteractor = (FirebaseUserLocationInteractor) subject;
             Location location = userLocationInteractor.getCurrentLocation();
 
             float latitude = (float) location.getLatitude();
             float longtitude = (float) location.getLongitude();
-
+            Log.i(TAG, "getCurrentLocation: latitude=" + latitude + "; longtitude="+longtitude);
             user.setLocation(latitude, longtitude);
             firebaseUserLocationInteractor.updateUserCoordinates(user);
             mapVIew.updateCurrentPosition(location);
         }
 
         if (subject instanceof FirebaseUsersListInteractor) {
+            Log.i(TAG, "usersLocationListInteractor ");
             FirebaseUsersListInteractor usersLocationListInteractor = (FirebaseUsersListInteractor) subject;
-//            Message msg = new Message();
-//            msg.obj = bt;
             mapVIew.updateListUsersPositions(firebaseUsersListInteractor.getMyList());
         }
     }
