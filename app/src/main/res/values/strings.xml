@@ -40,4 +40,6 @@
     <string name="panama">Panama</string>
     <string name="south_korea">South Korea</string>
     <string name="saudi_arabia">Saudi Arabia</string>
+    <string name="relogin">Registration</string>
+    <string name="chat">HolyWar</string>
 </resources>
