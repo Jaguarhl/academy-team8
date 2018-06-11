@@ -2,13 +2,14 @@ package academy.team8.com.footballfanlocator;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Application;
-import android.content.Context;
+
+import java.util.Calendar;
+
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.Icon;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -28,13 +29,12 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 
 import android.Manifest;
+import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.Toast;
 
-import java.util.List;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import academy.team8.com.footballfanlocator.interfaces.MapVIew;
@@ -103,9 +103,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         presenter.initialize();
     }
 
-    private Context getContext()
-    {
-        return this.getContext();
+    private MapActivity getActivity() {
+        return this;
     }
 
     private void initializeMap(GoogleMap googleMap) {
@@ -114,24 +113,61 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
             googleMap.setOnMarkerClickListener(this);
             googleMap.setOnInfoWindowClickListener(this);
-            googleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
-                @Override
-                public View getInfoWindow(Marker marker) {
-                    TextView text = new TextView(getContext());
-                    text.setText(R.string.call_telegram);
-                    return text;
-                }
+            googleMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
+        }
+    }
 
-                @Override
-                public View getInfoContents(Marker marker) {
-                    if (marker != null
-                            && marker.isInfoWindowShown()) {
-                        marker.hideInfoWindow();
-                        marker.showInfoWindow();
-                    }
-                    return null;
+    public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
+        private View view;
+
+        public CustomInfoWindowAdapter() {
+            view = getLayoutInflater().inflate(R.layout.custom_info_window, null);
+        }
+
+        @Override
+        public View getInfoWindow(Marker marker) {
+            final String title = marker.getTitle();
+            final AppCompatTextView titleUi = view.findViewById(R.id.info_window_text);
+            if (title != null) {
+                titleUi.setText(title);
+            } else {
+                titleUi.setText("");
+            }
+
+            AppCompatButton btn = view.findViewById(R.id.info_window_button);
+            if (btn != null) {
+                final String contact = marker.getSnippet();
+                if (StringUtil.isNullOrEmpty(contact)) {
+                    btn.setVisibility(View.GONE);
+                } else {
+                    btn.setVisibility(View.VISIBLE);
                 }
-            });
+            }
+            return view;
+        }
+
+
+        @Override
+        public View getInfoContents(Marker marker) {
+            if (marker != null
+                    && marker.isInfoWindowShown()) {
+                marker.hideInfoWindow();
+                marker.showInfoWindow();
+            }
+            return null;
+        }
+    }
+
+    public String checkAndGetTelegramApp() {
+        final String appName = "org.telegram.messenger";
+
+        PackageManager pm = this.getPackageManager();
+        try {
+            pm.getPackageInfo(appName, PackageManager.GET_ACTIVITIES);
+            return appName;
+        } catch (Exception e) {
+            Toast.makeText(this, "Telegram not Installed", Toast.LENGTH_SHORT).show();
+            return null;
         }
     }
 
@@ -157,8 +193,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         if (users == null)
             return;
         Log.i(TAG, "updateListUsersPositions: users count=" + users.size());
+        Calendar now = Calendar.getInstance();
         for (User user : users) {
             {
+                Calendar userCal = Calendar.getInstance();
+                userCal.setTime(user.getDate());
+                long diff = now.getTimeInMillis() - userCal.getTimeInMillis();
+                if (diff / (60 * 1000) > 10000) //diff in minutes
+                    continue;
                 googleMap.addMarker(new MarkerOptions()
                         .title(user.getLogin())
                         .snippet(user.getContact())
@@ -193,11 +235,28 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     @Override
     public boolean onMarkerClick(Marker marker) {
+        if(StringUtil.isNullOrEmpty(marker.getTitle()))
+            return true;
         return false;
     }
 
+
     @Override
     public void onInfoWindowClick(Marker marker) {
-        marker.getTag();
+        if(!StringUtil.isNullOrEmpty(marker.getSnippet()))
+        {
+            String contact = marker.getSnippet();
+            if (contact.indexOf("@") == 0) {
+                contact = contact.replace("@","");
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse("http://telegram.me/" + contact));
+                String appName = checkAndGetTelegramApp();
+                if (appName != null)
+                    i.setPackage(appName);
+                getActivity().startActivity(i);
+            } else if (contact.indexOf("+") == 0) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.fromParts("sms", contact, null)));
+            }
+        }
     }
 }

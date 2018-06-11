@@ -52,6 +52,12 @@ public class SignInActivity extends AppCompatActivity {
             cancel = true;
         }
 
+        if (contact.indexOf("+") != 0 && contact.indexOf("@") != 0) {
+            contactTextView.setError(getString(R.string.error_field_invalid));
+            focusView = contactTextView;
+            cancel = true;
+        }
+
         if (cancel) {
             if (focusView != null) {
                 focusView.requestFocus();
