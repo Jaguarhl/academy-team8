@@ -1,4 +1,4 @@
-package academy.team8.com.footballfanlocator;
+package academy.team8.com.footballfanlocator.model;
 
 import com.google.android.gms.maps.model.LatLng;
 

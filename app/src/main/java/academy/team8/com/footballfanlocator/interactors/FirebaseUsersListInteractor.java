@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
-import academy.team8.com.footballfanlocator.User;
+import academy.team8.com.footballfanlocator.model.User;
 
 public class FirebaseUsersListInteractor extends Observable {
 

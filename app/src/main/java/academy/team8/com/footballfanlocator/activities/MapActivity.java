@@ -1,10 +1,8 @@
-package academy.team8.com.footballfanlocator;
+package academy.team8.com.footballfanlocator.activities;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-
-import java.util.Calendar;
-
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -12,9 +10,17 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatTextView;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -27,16 +33,13 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-
-import android.Manifest;
-import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.AppCompatTextView;
-import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
-
+import java.util.Calendar;
 import java.util.List;
 
+import academy.team8.com.footballfanlocator.R;
+import academy.team8.com.footballfanlocator.model.User;
+import academy.team8.com.footballfanlocator.Utils.ApplicationSettings;
+import academy.team8.com.footballfanlocator.Utils.StringUtil;
 import academy.team8.com.footballfanlocator.interfaces.MapVIew;
 import academy.team8.com.footballfanlocator.presenters.SendLocationPresenter;
 
@@ -47,6 +50,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     LocationManager locationManager;
     SendLocationPresenter presenter;
     BitmapDescriptor icon;
+    private DrawerLayout mDrawerLayout;
 
     @SuppressLint("MissingPermission")
     @Override
@@ -65,6 +69,27 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 settings.getCurrentUser());
 
         icon = BitmapDescriptorFactory.fromResource(R.drawable.dot);
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        switch (menuItem.getItemId()) {
+                            case R.id.relogin_menuitem:
+                                SignInActivity.start(getActivity());
+                                break;
+
+                            case R.id.chat_menuitem:
+                                //HolyWarActivity.start(getActivity());
+                                break;
+                        }
+                        mDrawerLayout.closeDrawers();
+
+                        return true;
+                    }
+                });
     }
 
     private boolean isApplicationHasPermission(String accessFineLocation) {

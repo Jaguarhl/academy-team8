@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import academy.team8.com.footballfanlocator.ActivityChooseCountry;
+import academy.team8.com.footballfanlocator.activities.ChooseCountryActivity;
 import academy.team8.com.footballfanlocator.R;
 import academy.team8.com.footballfanlocator.model.CountryItem;
 
@@ -24,10 +24,10 @@ import academy.team8.com.footballfanlocator.model.CountryItem;
 public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.FighterImageViewHolder> {
     private ArrayList<CountryItem> countryList;
 //    private final View.OnClickListener mOnClickListener = new MyOnClickListener();
-    private ActivityChooseCountry activity;
+    private ChooseCountryActivity activity;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public CountryAdapter(ArrayList<CountryItem> fightersList, ActivityChooseCountry activity) {
+    public CountryAdapter(ArrayList<CountryItem> fightersList, ChooseCountryActivity activity) {
         this.countryList = fightersList;
         this.activity = activity;
     }
