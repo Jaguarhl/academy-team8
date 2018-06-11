@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Найди фанатов</string>
+    <string name="title_activity_choosecountry">Выберите страну за которую болеете</string>
+    <string name="loading">Загрузка</string>
+    <string name="nickname">Логин</string>
+    <string name="contact">Телеграм тэг</string>
+    <string name="sign_in">Войти</string>
+    <string name="error_field_required">Обязательное поле</string>
+    <string name="call_telegram">Запуск Telegramm</string>
+    <string name="russia">Россия</string>
+    <string name="germany">Германия</string>
+    <string name="brazil">Бразилия</string>
+    <string name="portugal">Португалия</string>
+    <string name="argentina">Аргентина</string>
+    <string name="belgium">Бельгия</string>
+    <string name="poland">Польша</string>
+    <string name="france">Франция</string>
+    <string name="spain">Испания</string>
+    <string name="peru">Перу</string>
+    <string name="switzerland">Швейцария</string>
+    <string name="england">Англия</string>
+    <string name="colombia">Колумбия</string>
+    <string name="mexico">Мексика</string>
+    <string name="uruguay">Уругвай</string>
+    <string name="croatia">Хорватия</string>
+    <string name="denmark">Дания</string>
+    <string name="iceland">Исландия</string>
+    <string name="costa_rica">Коста-Рика</string>
+    <string name="sweden">Швеция</string>
+    <string name="tunisia">Тунис</string>
+    <string name="egypt">Египет</string>
+    <string name="senegal">Сенегал</string>
+    <string name="iran">Иран</string>
+    <string name="serbia">Сербия</string>
+    <string name="nigeria">Нигерия</string>
+    <string name="australia">Австралия</string>
+    <string name="japan">Япония</string>
+    <string name="morocco">Марокко</string>
+    <string name="panama">Панама</string>
+    <string name="south_korea">Республика Корея</string>
+    <string name="saudi_arabia">Саудовская Аравия</string>
+</resources>
