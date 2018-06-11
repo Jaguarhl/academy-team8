@@ -1,9 +1,14 @@
 package academy.team8.com.footballfanlocator;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 
 import java.util.ArrayList;
@@ -14,18 +19,20 @@ import academy.team8.com.footballfanlocator.model.CountryItem;
 
 public class ActivityChooseCountry extends AppCompatActivity implements OnItemClickListener {
     private RecyclerView myRecylerView;
+    private ArrayList<CountryItem> countryLists;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choosecountry);
         myRecylerView = (RecyclerView) findViewById(R.id.recyclerView);
+        Toast.makeText(getApplicationContext(), "Choose the country you support!", Toast.LENGTH_LONG).show();
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         myRecylerView.setHasFixedSize(true);
         // use a linear layout manager
         myRecylerView.setLayoutManager(new LinearLayoutManager(this));
-        ArrayList<CountryItem> countryLists = new ArrayList<>();
+        countryLists = new ArrayList<>();
         countryLists.add(new CountryItem(1, "russia", "Russia", "rus"));
         countryLists.add(new CountryItem(2, "germany", "Germany", "ger"));
         countryLists.add(new CountryItem(3, "brazil", "Brazil", "braz"));
@@ -58,13 +65,17 @@ public class ActivityChooseCountry extends AppCompatActivity implements OnItemCl
         countryLists.add(new CountryItem(30, "panama", "Panama", "panam"));
         countryLists.add(new CountryItem(31, "south_korea", "South Korea", "soukor"));
         countryLists.add(new CountryItem(32, "saudi_arabia", "Saudi Arabia", "saudi"));
-
-        RecyclerView.Adapter adapter = new CountryAdapter(countryLists);
+        RecyclerView.Adapter adapter = new CountryAdapter(countryLists, this);
         myRecylerView.setAdapter(adapter);
     }
 
     @Override
     public void onItemClicked(int position) {
+        SharedPreferences preferences = getSharedPreferences("FANS_LOCATOR_PREFS", Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = preferences.edit();
+        edit.putString("COUNTRY", countryLists.get(position).getCountryPk()).commit();
+        Intent signInActivity = new Intent(this, MapActivity.class);
+        this.startActivity(signInActivity);
     }
 
     public static void start(Activity activity) {
@@ -72,7 +83,9 @@ public class ActivityChooseCountry extends AppCompatActivity implements OnItemCl
         activity.startActivity(chooseCountryActivity);
     }
 
-    public static void start(Context context) {
-        context.startActivity(new Intent(context, ActivityChooseCountry.class));
-    }
+//    public void startMaps() {
+//        Intent chooseCountryActivity = new Intent(this.getApplicationContext(), MapActivity.class);
+//        this.getApplicationContext().startActivity(chooseCountryActivity);
+//    }
+
 }

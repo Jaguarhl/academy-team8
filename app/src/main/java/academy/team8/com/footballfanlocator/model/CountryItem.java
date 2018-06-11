@@ -40,4 +40,10 @@ public class CountryItem {
     public void setCountryName(String countryName) {
         this.countryName = countryName;
     }
+
+    public String getCountryPk() {
+        return this.countryPk;
+    }
 }
+
+
