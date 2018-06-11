@@ -67,11 +67,9 @@ public class SendLocationPresenter implements Observer {
 
         if (subject instanceof FirebaseUsersListInteractor) {
             FirebaseUsersListInteractor usersLocationListInteractor = (FirebaseUsersListInteractor) subject;
-            Location location = firebaseUserLocationInteractor.getCurrentLocation();
 //            Message msg = new Message();
 //            msg.obj = bt;
-            mapVIew.updateCurrentPosition(location);
-            mapVIew.updateListUsersPositions(location);
+            mapVIew.updateListUsersPositions(firebaseUsersListInteractor.getMyList());
         }
     }
 }
