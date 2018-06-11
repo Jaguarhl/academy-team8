@@ -30,6 +30,7 @@ public class SendLocationPresenter implements Observer {
     public void initialize() {
         firebaseUsersListInteractor.initializeDatabaseListener(this.user.getCountry());
         firebaseUserLocationInteractor.addObserver(this);
+        firebaseUsersListInteractor.addObserver(this);
         Log.i(TAG, "Location init");
         try {
             if (locationManager == null) {
