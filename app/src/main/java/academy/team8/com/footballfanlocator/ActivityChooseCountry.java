@@ -1,5 +1,8 @@
 package academy.team8.com.footballfanlocator;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -20,15 +23,16 @@ public class ActivityChooseCountry extends AppCompatActivity implements OnItemCl
 
         RecyclerView recyclerView= findViewById(R.id.recyclerView);
         RecyclerView.LayoutManager layoutManager;
-
         layoutManager = new LinearLayoutManager(this);
-
         recyclerView.setLayoutManager(layoutManager);
-
     }
 
     @Override
     public void onItemClicked(int position) {
+    }
 
+    public static void start(Activity activity) {
+        Intent chooseCountryActivity = new Intent(activity, ActivityChooseCountry.class);
+        activity.startActivity(chooseCountryActivity);
     }
 }

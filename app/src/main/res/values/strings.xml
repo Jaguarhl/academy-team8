@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Football fan locator</string>
     <string name="title_activity_choosecountry">activity_choosecountry</string>
+    <string name="loading">Loading&#8230;</string>
+    <string name="nickname">Nickname</string>
+    <string name="contact">Your contact</string>
+    <string name="sign_in">Sign in</string>
+    <string name="error_field_required">Required</string>
 </resources>
