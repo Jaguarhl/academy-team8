@@ -1,7 +1,6 @@
-package academy.team8.com.footballfanlocator;
+package academy.team8.com.footballfanlocator.activities;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +8,9 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+
+import academy.team8.com.footballfanlocator.R;
+import academy.team8.com.footballfanlocator.Utils.ApplicationSettings;
 
 public class SignInActivity extends AppCompatActivity {
     AutoCompleteTextView nickTextView;
@@ -69,7 +71,7 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private void openNextActivity() {
-        ActivityChooseCountry.start(this);
+        ChooseCountryActivity.start(this);
     }
 
     public static void start(Activity activity) {

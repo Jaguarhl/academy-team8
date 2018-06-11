@@ -1,11 +1,13 @@
-package academy.team8.com.footballfanlocator;
+package academy.team8.com.footballfanlocator.Utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
 import java.util.UUID;
 
-class ApplicationSettings {
+import academy.team8.com.footballfanlocator.model.User;
+
+public class ApplicationSettings {
     private static final String APPLICATION_PREFS_NAME = "FANS_LOCATOR_PREFS";
     private static final String ID = "ID";
     private static final String LOGIN = "LOGIN";

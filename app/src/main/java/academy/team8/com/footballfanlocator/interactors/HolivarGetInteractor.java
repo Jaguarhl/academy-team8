@@ -12,11 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
-import academy.team8.com.footballfanlocator.Holivar;
+import academy.team8.com.footballfanlocator.model.ChatMessage;
 
 public class HolivarGetInteractor extends Observable {
 
-    private List<Holivar> myList;
+    private List<ChatMessage> myList;
 
     public void initializeDatabaseListener() {
         FirebaseDatabase mFirebaseDb = FirebaseDatabase.getInstance();
@@ -38,15 +38,15 @@ public class HolivarGetInteractor extends Observable {
         myList = new ArrayList<>();
 
         for (DataSnapshot item : dataSnapshot.getChildren()) {
-            Holivar holivar = item.getValue(Holivar.class);
-            myList.add(holivar);
+            ChatMessage chatMessage = item.getValue(ChatMessage.class);
+            myList.add(chatMessage);
         }
 
         this.setChanged();
         notifyObservers();
     }
 
-    public List<Holivar> getHolivarList() {
+    public List<ChatMessage> getHolivarList() {
         return myList;
     }
 
