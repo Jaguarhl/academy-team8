@@ -41,6 +41,7 @@
             android:name=".activities.ChooseCountryActivity"
             android:label="@string/title_activity_choosecountry"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activities.ChatActivity"></activity>
     </application>
 
 </manifest>

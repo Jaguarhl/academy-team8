@@ -82,7 +82,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                 break;
 
                             case R.id.chat_menuitem:
-                                //HolyWarActivity.start(getActivity());
+                                ChatActivity.start(getActivity());
                                 break;
                         }
                         mDrawerLayout.closeDrawers();
@@ -217,7 +217,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public void updateListUsersPositions(List<User> users) {
         if (users == null)
             return;
-        Log.i(TAG, "updateListUsersPositions: users count=" + users.size());
+        Log.i(TAG, "onChatUpdate: users count=" + users.size());
         Calendar now = Calendar.getInstance();
         for (User user : users) {
             {
