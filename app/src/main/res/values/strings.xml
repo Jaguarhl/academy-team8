@@ -6,4 +6,5 @@
     <string name="contact">Your contact</string>
     <string name="sign_in">Sign in</string>
     <string name="error_field_required">Required</string>
+    <string name="call_telegram">Go to telegram</string>
 </resources>
