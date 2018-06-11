@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import academy.team8.com.footballfanlocator.ActivityChooseCountry;
 import academy.team8.com.footballfanlocator.R;
 import academy.team8.com.footballfanlocator.model.CountryItem;
 
@@ -22,11 +23,13 @@ import academy.team8.com.footballfanlocator.model.CountryItem;
 
 public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.FighterImageViewHolder> {
     private ArrayList<CountryItem> countryList;
-    private final View.OnClickListener mOnClickListener = new MyOnClickListener();
+//    private final View.OnClickListener mOnClickListener = new MyOnClickListener();
+    private ActivityChooseCountry activity;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public CountryAdapter(ArrayList<CountryItem> fightersList) {
+    public CountryAdapter(ArrayList<CountryItem> fightersList, ActivityChooseCountry activity) {
         this.countryList = fightersList;
+        this.activity = activity;
     }
 
     @NonNull
@@ -34,17 +37,26 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.FighterI
     public FighterImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View itemView = inflater.inflate(R.layout.item_country, parent, false);
-        itemView.setOnClickListener(mOnClickListener);
+        //itemView.setOnClickListener(mOnClickListener);
         return new FighterImageViewHolder(itemView);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
-    public void onBindViewHolder(@NonNull FighterImageViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FighterImageViewHolder holder, final int position) {
         CountryItem countryItem = countryList.get(position);
-        Context context = holder.countryFlag.getContext();
+        final Context context = holder.countryFlag.getContext();
         int id = context.getResources().getIdentifier(countryItem.getFlagPic(), "drawable", context.getPackageName());
         holder.countryFlag.setImageResource(id);
         holder.countryName.setText(countryItem.getCountryName());
+        holder.itemView.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(context, "Get over here!", Toast.LENGTH_LONG).show();
+                        activity.onItemClicked(position);
+                    }
+                }
+        );
     }
 
     @Override
@@ -67,14 +79,15 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.FighterI
         }
     }
 
-    private class MyOnClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(final View view) {
-            Toast.makeText(view.getContext(), "Get over here!", Toast.LENGTH_LONG).show();
-            //MediaPlayer mPlayer = MediaPlayer.create(view.getContext(), R.raw.mk);
-            //mPlayer.start();
-        }
-    }
+//    private class MyOnClickListener implements View.OnClickListener {
+//        @Override
+//        public void onClick(final View view) {
+//            Toast.makeText(view.getContext(), "Get over here!", Toast.LENGTH_LONG).show();
+//            activity.onItemClicked();
+//            //MediaPlayer mPlayer = MediaPlayer.create(view.getContext(), R.raw.mk);
+//            //mPlayer.start();
+//        }
+//    }
 }
 
 

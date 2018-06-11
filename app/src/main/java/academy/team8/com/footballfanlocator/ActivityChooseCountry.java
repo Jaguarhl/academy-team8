@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class ActivityChooseCountry extends AppCompatActivity implements OnItemCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choosecountry);
         myRecylerView = (RecyclerView) findViewById(R.id.recyclerView);
+        Toast.makeText(getApplicationContext(), "Choose the country you support!", Toast.LENGTH_LONG).show();
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         myRecylerView.setHasFixedSize(true);
@@ -63,8 +65,7 @@ public class ActivityChooseCountry extends AppCompatActivity implements OnItemCl
         countryLists.add(new CountryItem(30, "panama", "Panama", "panam"));
         countryLists.add(new CountryItem(31, "south_korea", "South Korea", "soukor"));
         countryLists.add(new CountryItem(32, "saudi_arabia", "Saudi Arabia", "saudi"));
-
-        RecyclerView.Adapter adapter = new CountryAdapter(countryLists);
+        RecyclerView.Adapter adapter = new CountryAdapter(countryLists, this);
         myRecylerView.setAdapter(adapter);
     }
 
@@ -73,12 +74,18 @@ public class ActivityChooseCountry extends AppCompatActivity implements OnItemCl
         SharedPreferences preferences = getSharedPreferences("FANS_LOCATOR_PREFS", Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = preferences.edit();
         edit.putString("COUNTRY", countryLists.get(position).getCountryPk()).commit();
-        start(this);
+        Intent signInActivity = new Intent(this, MapActivity.class);
+        this.startActivity(signInActivity);
     }
 
     public static void start(Activity activity) {
-        Intent chooseCountryActivity = new Intent(activity, MapActivity.class);
+        Intent chooseCountryActivity = new Intent(activity, ActivityChooseCountry.class);
         activity.startActivity(chooseCountryActivity);
     }
+
+//    public void startMaps() {
+//        Intent chooseCountryActivity = new Intent(this.getApplicationContext(), MapActivity.class);
+//        this.getApplicationContext().startActivity(chooseCountryActivity);
+//    }
 
 }

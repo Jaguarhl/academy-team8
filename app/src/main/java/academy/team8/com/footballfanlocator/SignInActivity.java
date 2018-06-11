@@ -63,8 +63,7 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private void openNextActivity() {
-        MapActivity.start(this);
-        //ActivityChooseCountry.start(this);
+        ActivityChooseCountry.start(this);
     }
 
     public static void start(Activity activity) {
