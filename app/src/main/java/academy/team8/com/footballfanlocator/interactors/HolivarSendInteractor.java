@@ -17,7 +17,7 @@ public class HolivarSendInteractor extends Observable {
         Log.i(TAG, "Sending Message");
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference myRef = firebaseDatabase.getReference();
-        myRef.child("chatMessage").setValue(chatMessage);
+        myRef.child("chatMessage").child(chatMessage.getPrimaryKey()).setValue(chatMessage);
         setChanged();
         notifyObservers();
     }

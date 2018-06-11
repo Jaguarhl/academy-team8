@@ -2,6 +2,8 @@ package academy.team8.com.footballfanlocator.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
@@ -22,7 +24,7 @@ import academy.team8.com.footballfanlocator.model.User;
 import academy.team8.com.footballfanlocator.presenters.HolywarPresenter;
 
 public class ChatActivity extends AppCompatActivity implements HolywarView {
-
+    HolywarPresenter presenter;
     User currentUser;
     TextView textView;
     EditText textEdit;
@@ -32,7 +34,8 @@ public class ChatActivity extends AppCompatActivity implements HolywarView {
         setContentView(R.layout.activity_chat);
         ApplicationSettings settings = new ApplicationSettings(this.getApplicationContext());
         currentUser = settings.getCurrentUser();
-        final HolywarPresenter presenter = new HolywarPresenter(this, currentUser);
+        presenter = new HolywarPresenter(this, currentUser);
+
         Button sendBtn = findViewById(R.id.chat_send_button);
         textView = findViewById(R.id.chat_text_view);
         textEdit = findViewById(R.id.chat_edit_text);
@@ -44,6 +47,12 @@ public class ChatActivity extends AppCompatActivity implements HolywarView {
                 presenter.sendMessage(msg);
             }
         });
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
+        super.onCreate(savedInstanceState, persistentState);
+        presenter.initialize();
     }
 
     @Override

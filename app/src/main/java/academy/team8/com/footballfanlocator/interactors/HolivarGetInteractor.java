@@ -20,7 +20,7 @@ public class HolivarGetInteractor extends Observable {
 
     public void initializeDatabaseListener() {
         FirebaseDatabase mFirebaseDb = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = mFirebaseDb.getReference("holivar");
+        DatabaseReference myRef = mFirebaseDb.getReference("chatMessage");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
