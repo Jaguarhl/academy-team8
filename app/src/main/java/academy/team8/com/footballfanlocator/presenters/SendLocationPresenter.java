@@ -53,13 +53,10 @@ public class SendLocationPresenter implements Observer {
         if (subject instanceof FirebaseUserLocationInteractor) {
             FirebaseUserLocationInteractor userLocationInteractor = (FirebaseUserLocationInteractor) subject;
             Location location = userLocationInteractor.getCurrentLocation();
-            /////////////////////////////////
-            //СУПЕР КОД ОТ адепта PHP
-            double a = location.getLatitude();
-            float latitude = (float) a;
-            double b = location.getLongitude();
-            float longtitude = (float) b;
-            ////////////////////////////////
+
+            float latitude = (float) location.getLatitude();
+            float longtitude = (float) location.getLongitude();
+
             user.setLocation(latitude, longtitude);
             firebaseUserLocationInteractor.updateUserCoordinates(user);
             mapVIew.updateCurrentPosition(location);
